@@ -2,16 +2,16 @@
 require_once("model/connexionManager.php");
 class CommentManager extends connexionManager
 {
-    public function showComments ()
-    //récupère les commentaires liés à une publication
+    public function getComments ($publicationId)
     {
+        //cette fonction permet de récupérer les commentaires liés à l'article consulté par l'utilisateur
         $db = $this->dbconnect();
         $req = $db->prepare('SELECT * FROM comments WHERE publicationId = ?');
         $comments = $req->execute(array($_GET['publicationId']));
         $comments = [];
         while ($data = $req->fetch())
         {
-            $comments[] = ['$comment'=>$data];
+            $comments[] = $data;
         }
         $req->closeCursor();
         return $comments;

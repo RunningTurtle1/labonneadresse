@@ -1,5 +1,5 @@
 <?php
-require_once("model/connexionManager.php");
+
 class PublicationManager extends connexionManager
 {     
     public function showPosts ($cPage)
@@ -21,13 +21,12 @@ class PublicationManager extends connexionManager
         $posts = [];
         while ($data = $req->fetch())
         {
-            $posts[] = $data;
+            $publication = new Publication($data['publicationId'], $data['publicationTitle'], $data['publicationText'], $data['publicationDate']);
+            $posts[] = $publication;
         }
         //on met directement les données dans un tableau avant de les envoyer au controller
         $req->closeCursor();
-        $controller = new MainController;
-        $twig = $controller->getTwig();
-        echo $twig->render('home.twig', ['posts' => $posts]);
+        return $posts;
     }
 
     public function nbPages ()
@@ -50,7 +49,8 @@ class PublicationManager extends connexionManager
         $posts = [];
         while ($data = $req->fetch())
         {
-            $posts[] = ['post'=>$data];
+            $publication = new Publication($data['publicationId'], $data['publicationTitle'], $data['publicationText'], $data['publicationDate']);
+            $posts[] = $publication;
         }
         return $posts;
     }
@@ -90,19 +90,6 @@ class PublicationManager extends connexionManager
         $req->execute(array($_POST['title'], $_POST['text']));
     }
 
-    public function getComments ($publicationId)
-    {
-        //cette fonction permet de récupérer les commentaires liés à l'article consulté par l'utilisateur
-        $db = $this->dbconnect();
-        $req = $db->prepare('SELECT * FROM comments WHERE publicationId = ?');
-        $comments = $req->execute(array($_GET['publicationId']));
-        $comments = [];
-        while ($data = $req->fetch())
-        {
-            $comments[] = ['comment'=>$data];
-        }
-        $req->closeCursor();
-        return $comments;
-    }
 }
+
 ?>

@@ -14,17 +14,30 @@ if (isset($_GET['action']))
 {
     switch ($_GET['action']) 
     {
-        case "createpub":
-        require('controller/publicationManager.php');
-        createPost();
+        case 'newpost':
+        $publication = new PublicationController;
+        $publication->createPost();
         break;
 
-        case "showpost":
-        require('controller/publicationManager.php');
-        $post = showPost();
-        require('controller/commentManager.php');
-        $comments = getComments();
-        echo $twig->render('showPost.twig', ['post' => $post, 'comments' => $comments]);
+        case 'addComment':
+        $comment = new CommentController;
+        $comment->addComment();
+        break;
+        
+        case 'showpost':
+        $publication = new PublicationController;
+        $publication->showPost();
+        break;
+
+        case 'adm':
+        $publication = new PublicationController;
+        $publication->showPostTitle();
+        break;
+         
+        default:
+        $publication = new PublicationController;
+        $posts = $publication->showPosts();
+        break;
     }
 
 }
