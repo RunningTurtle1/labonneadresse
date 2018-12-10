@@ -1,6 +1,5 @@
 <?php
-require_once('model/connexionManager.php');
-class UserManager extends connexionManager
+class UserManager extends ConnexionManager
 {
     public function connect ($username)
     {

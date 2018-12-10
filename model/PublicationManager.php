@@ -1,6 +1,6 @@
 <?php
 
-class PublicationManager extends connexionManager
+class PublicationManager extends ConnexionManager
 {     
     public function showPosts ($cPage)
     {
@@ -61,7 +61,8 @@ class PublicationManager extends connexionManager
         $db = $this->dbconnect();
         $req = $db->prepare('SELECT * FROM publication WHERE publicationId = ?');
         $req->execute(array($publicationId));
-        $post = $req->fetch();
+        $data = $req->fetch();
+        $post = new Publication($data['publicationId'], $data['publicationTitle'], $data['publicationText'], $data['publicationDate']);
         return $post;
     }
 

@@ -1,6 +1,5 @@
 <?php
-require_once("model/connexionManager.php");
-class CommentManager extends connexionManager
+class CommentManager extends ConnexionManager
 {
     public function getComments ($publicationId)
     {
@@ -11,7 +10,8 @@ class CommentManager extends connexionManager
         $comments = [];
         while ($data = $req->fetch())
         {
-            $comments[] = $data;
+            $comment = new Comment($data['commentId'], $data['username'], $data['text'], $data['date']);
+            $comments[] = $comment;
         }
         $req->closeCursor();
         return $comments;

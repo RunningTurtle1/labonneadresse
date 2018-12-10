@@ -36,7 +36,6 @@ class PublicationController extends MainController
 
     public function getPost()
     {
-        require_once('model/pubs.php');
         $publication = new PublicationManager();
         $post = $publication->getPost($_GET['publicationId']);
         require('view/adm.php');
