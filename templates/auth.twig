@@ -1,0 +1,15 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+
+    <form method='post' action='index.php?action=authentification'>
+        <label for='id'>Votre nom d'utilisateur <br/>
+            <input type='text' name='id'>
+        </label><br/>
+        <label for='password'>Votre mot de passe </br>
+            <input type='password' name='password'>
+        </label><br/>
+        <input type='submit' value='Me connecter'>
+    </form>
+
+{% endblock %}
