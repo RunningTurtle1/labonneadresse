@@ -4,23 +4,23 @@ class UserController extends MainController
     public function signIn ()
     {
         $twig = $this->getTwig();
-        echo $twig->render('auth.twig');
+        echo $twig->render('auth.twig', ['token' => $_SESSION['token']]);
     }
     
-    public function userSignIn ()
+    public function userSignIn ($username, $password)
     {
         $userManager = new UserManager;
-        $user = $userManager->connect($_POST['user']);
-        if ((($_POST['password']) == $user['password']) && ($user['userType'] == "Admin"))
+        $user = $userManager->connect($username);
+        if (($password == $user->getPassword()) && ($user->getUsertype() == "Admin"))
         {
             $_SESSION['admin'] = true;
+            $_SESSION['username'] = $username;
             header('location:index.php?action=adm');
-            $_SESSION['username'] = $_POST['user'];
         }
-        else if (($_POST['password']) == $user['password'])
+        else if ($password == $user->getPassword())
         {
             $_SESSION['userConnected'] = true;
-            $_SESSION['username'] = $_POST['user'];
+            $_SESSION['username'] = $username;
             header('location:index.php');
         }
         else
@@ -43,6 +43,7 @@ class UserController extends MainController
     public function userSignOut ()
     {
         session_destroy();
+        $_SESSION['userConnected'] = false;
     }
 }
 ?>

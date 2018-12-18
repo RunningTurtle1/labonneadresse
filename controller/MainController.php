@@ -28,6 +28,10 @@ class MainController
         {
             throw new Exception ('Une erreur est survenue, veuillez réessayer');
         }
+        else 
+        {
+            echo 'Opération réussie';
+        }
     }
 }
 ?>

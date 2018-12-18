@@ -3,13 +3,14 @@
 {% block content %}
 
     <form method='post' action='index.php?action=authentification'>
-        <label for='id'>Votre nom d'utilisateur <br/>
-            <input type='text' name='id'>
+        <label for='username'>Votre nom d'utilisateur <br/>
+            <input type='text' name="username" id='username'/>
         </label><br/>
         <label for='password'>Votre mot de passe </br>
-            <input type='password' name='password'>
+            <input type='password' name='password' id='password'/>
         </label><br/>
-        <input type='submit' value='Me connecter'>
+        <input type='hidden' value='{{ token }}'/>
+        <input type='submit' value='Me connecter'/>
     </form>
 
 {% endblock %}

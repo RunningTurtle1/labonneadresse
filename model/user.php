@@ -1,20 +1,56 @@
 <?php
-class UserManager extends ConnexionManager
+class User 
 {
-    public function connect ($username)
+
+    private $_username;
+    private $_password;
+    private $_usertype;
+    private $_email;
+
+    public function __contruct ($username, $password, $usertype, $email)
     {
-        $db = $this->dbconnect();
-        $req = $db->prepare('SELECT * FROM users WHERE username = ?');
-        $req->execute(array($username));
-        $user = $req->fetch();
-        return $user;
+        $this->setUsername($username);
+        $this->setPassword($password);
+        $this->setUsertype($usertype); 
+        $this->setEmail($email);
     }
 
-    public function createAccount ($email, $username, $password)
+    public function setUsername ($username)
     {
-        $db = $this->dbconnect();
-        $req = $db->prepare('INSERT INTO users(emailAddress, username, password,userType) VALUES(?, ?, ?, \'user\') ');
-        $req->execute(array($email, $username, $password));
+        $this->_username = $username;
+    }
+    public function setPassword ($password)
+    {
+        $this->_password = $password;
+    }
+    public function setUsertype ($usertype)
+    {
+        $this->_usertype = $usertype;
+    }
+    public function setEmail ($email)
+    {
+        $this->_email = $email;
+    }
+
+
+    public function getUsername()
+    {
+        return $this->_username;
+    }
+
+    public function getPassword ()
+    {
+        return $this->_password;
+    }
+
+    public function getUsertype ()
+    {
+        return $this->_usertype;
+    }
+    public function getEmail ()
+    {
+        return $this->_email;
     }
 }
+
 ?>

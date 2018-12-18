@@ -6,7 +6,8 @@ class UserManager extends ConnexionManager
         $db = $this->dbconnect();
         $req = $db->prepare('SELECT * FROM users WHERE username = ?');
         $req->execute(array($username));
-        $user = $req->fetch();
+        $data = $req->fetch();
+        $user = new User($data['username'], $data['password'], $data['userType'], $data['emailAddress']);
         return $user;
     }
 

@@ -5,20 +5,31 @@ Autoloader::register();
 
 require 'vendor/autoload.php';
 
-
-if (!isset($_SESSION))
+session_start();
+if (!isset($_SESSION['userConnected']))
 {
-    session_start();
-    $controller = new MainController;
-    if (!isset($_SESSION['admin']))
-    {
-        $_SESSION['admin'] = false;
-    }
-    if (!isset($_SESSION['token']))
-    {
-        $controller->generateToken();
-    }
+    $_SESSION['userConnected'] = false;
 }
+if (!isset($_SESSION['admin']))
+{
+    $_SESSION['admin'] = false;
+}
+if (!isset($_SESSION['token']))
+{
+    $controller = new MainController;
+    $token = $controller->generateToken();
+}
+
+var_dump($_SESSION);
+if($_SESSION['admin'] == true)
+{
+    echo 'Vous êtes adminisrateur';
+}
+else
+{
+    echo 'Vous n\'êtes pas admin';
+}
+
 if (isset($_GET['action']))
 {
     switch ($_GET['action']) 
@@ -61,6 +72,20 @@ if (isset($_GET['action']))
         case 'auth': 
         $user = new UserController;
         $user->signIn();
+        break;
+
+        case 'authentification':
+        var_dump($_POST['username']);
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        var_dump($_POST['password']);
+        $user = new UserController;
+        $user->userSignIn($username, $password);
+        break;
+
+        case 'signout':
+        $user = new UserController;
+        $user->userSignOut();
         break;
 
         default:
