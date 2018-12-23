@@ -12,9 +12,12 @@
     </div>
 
     <div>
+    <h3>Les commentaires</h3>
 
         {% for comment in comments %}
-            <p> {{ comment.textContent }}</p>
+            <div>
+                <p> {{ comment.getText }}</p>
+            </div>
         {% endfor %}
 
     </div>

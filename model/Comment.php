@@ -1,6 +1,6 @@
 <?php
 
-class Publication 
+class Comment 
 {
     private $_id;
     private $_username;
@@ -22,7 +22,7 @@ class Publication
 
     public function setTitle ($username)
     {
-        if(isset($title))
+        if(isset($username))
         {
             $this->_username = $username;
         }

@@ -21,14 +21,7 @@ if (!isset($_SESSION['token']))
 }
 
 var_dump($_SESSION);
-if($_SESSION['admin'] == true)
-{
-    echo 'Vous êtes adminisrateur';
-}
-else
-{
-    echo 'Vous n\'êtes pas admin';
-}
+
 
 if (isset($_GET['action']))
 {
@@ -37,6 +30,11 @@ if (isset($_GET['action']))
         case 'newpost':
         $publication = new PublicationController;
         $publication->createPost();
+        break;
+
+        case 'newcomment':
+        $comment = new CommentController;
+        $comment->addComment();
         break;
 
         case 'deletepost':
@@ -75,10 +73,8 @@ if (isset($_GET['action']))
         break;
 
         case 'authentification':
-        var_dump($_POST['username']);
         $username = $_POST['username'];
         $password = $_POST['password'];
-        var_dump($_POST['password']);
         $user = new UserController;
         $user->userSignIn($username, $password);
         break;

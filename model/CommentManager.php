@@ -6,11 +6,11 @@ class CommentManager extends ConnexionManager
         //cette fonction permet de récupérer les commentaires liés à l'article consulté par l'utilisateur
         $db = $this->dbconnect();
         $req = $db->prepare('SELECT * FROM comments WHERE publicationId = ?');
-        $comments = $req->execute(array($_GET['publicationId']));
+        $req->execute(array($_GET['publicationId']));
         $comments = [];
         while ($data = $req->fetch())
         {
-            $comment = new Comment($data['commentId'], $data['username'], $data['text'], $data['date']);
+            $comment = new Comment($data['commentId'], $data['Username'], $data['textContent'], $data['commentDate']);
             $comments[] = $comment;
         }
         $req->closeCursor();

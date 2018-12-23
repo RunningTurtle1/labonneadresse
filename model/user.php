@@ -7,11 +7,11 @@ class User
     private $_usertype;
     private $_email;
 
-    public function __contruct ($username, $password, $usertype, $email)
+    public function __construct ($username, $password, $usertype, $email)
     {
         $this->setUsername($username);
         $this->setPassword($password);
-        $this->setUsertype($usertype); 
+        $this->setUsertype($usertype);
         $this->setEmail($email);
     }
 
@@ -19,14 +19,17 @@ class User
     {
         $this->_username = $username;
     }
+
     public function setPassword ($password)
     {
         $this->_password = $password;
     }
+
     public function setUsertype ($usertype)
     {
         $this->_usertype = $usertype;
     }
+
     public function setEmail ($email)
     {
         $this->_email = $email;

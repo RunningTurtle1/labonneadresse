@@ -5,7 +5,7 @@ class PublicationController extends MainController
     {
         if (!$_SESSION['admin'])
         {
-            header('location:index.php?action=authentification');
+            header('location:index.php?action=auth');
             //si l'utilisateur n'est pas connecté il est renvoyé à la page d'authentification
         }
     }
@@ -29,8 +29,8 @@ class PublicationController extends MainController
     {
         $publication = new PublicationManager();
         $post = $publication->getPost($_GET['publicationId']);
-        $comments = new CommentManager();
-        $comments = $comments->getComments($_GET['publicationId']);
+        $comment = new CommentManager();
+        $comments = $comment->getComments($_GET['publicationId']);
         echo $this->getTwig()->render('showPost.twig', ['post' => $post, 'comments' => $comments]);
     }
 
@@ -43,6 +43,7 @@ class PublicationController extends MainController
 
     public function showPostTitle ()
     {
+        $this->checkAdmin();
         $publication = new PublicationManager();
         $posts = $publication->getPosts();
         echo $this->getTwig()->render('adm.twig', ['posts' => $posts, 'token' => $_SESSION['token']]);
@@ -50,6 +51,7 @@ class PublicationController extends MainController
 
     public function createPost ()
     {
+        $this->checkToken();
         $publication = new PublicationManager();
         $publication->addPub();
     }
@@ -66,15 +68,13 @@ class PublicationController extends MainController
 
     public function editPost ()
     {
-
-        require('model/pubs.php');
+        $this->checkToken();
         $publication = new PublicationManager();
         $publication->editPost($_GET['publicationId']);
     }
 
     public function orderReports ()
     {
-        require_once('model/comments.php');
         $commentManager = new CommentManager();
         $req = $commentManager->orderReports();
         $comments = [];
