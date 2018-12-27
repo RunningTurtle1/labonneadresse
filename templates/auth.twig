@@ -9,7 +9,7 @@
         <label for='password'>Votre mot de passe </br>
             <input type='password' name='password' id='password'/>
         </label><br/>
-        <input type='hidden' value='{{ token }}'/>
+        <input type='hidden' value='{{ session.token }}'/>
         <input type='submit' value='Me connecter'/>
     </form>
 

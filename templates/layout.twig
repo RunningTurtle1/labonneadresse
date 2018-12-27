@@ -6,16 +6,22 @@
 <body>
     <nav>
         <ul>
-            {% if userConnected == false %}
+            {% if session.userConnected == false %}
+                
                 <li> <a href="index.php?action=auth">Me connecter </a></li>
+                
+                <li> <a href="index.php?action=createaccount">Créer un compte </a></li>
+
             {% endif %}
 
+            {% if session.userConnected == true %}
+                
                 <li> <a href='index.php?action=signout'>Me déconnecter </a> </li>
+
+            {% endif %}
 
             <li> <a href="index.php?action=adm"> Page d'administration </a></li>
             
-            <li> <a href="index.php?action=createaccount">Créer un compte </a></li>
-
             <li> <a href="index.php">Retour à la page d'acceuil </a> </li>
 
         </ul>

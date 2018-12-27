@@ -15,7 +15,7 @@
                 <p>L'article</p>
                 <textarea name='text' id='text'> </textarea> 
             </label> <br />
-            <input type='text' value='{{ token }}' hidden='true'>
+            <input type='text' value='{{ session.token }}' hidden='true'>
             <input type='submit' value='Poster'>
         </form>
     </div>
@@ -29,9 +29,9 @@
                     {{ post.getTitle }}
                     <em>le {{ post.getDate }}</em>
                 </h3>
-                <a href="index.php?action=editpost&amp;publicationId={{ post.getId }}&amp;token={{ token }}"> Modifier l'article </a> <br />
-                <a href="index.php?action=deletepost&amp;publicationId={{ post.getId }}&amp;token={{ token }}" > Supprimer cette publication </a> <br />
-                <a href="index.php?action=showpost&amp;publicationId={{ post.getId }}&amp;token={{ token }}" target="_blank" > Lire l'article </a>
+                <a href="index.php?action=editpost&amp;publicationId={{ post.getId }}&amp;token={{ session.token }}"> Modifier l'article </a> <br />
+                <a href="index.php?action=deletepost&amp;publicationId={{ post.getId }}&amp;token={{ session.token }}" > Supprimer cette publication </a> <br />
+                <a href="index.php?action=showpost&amp;publicationId={{ post.getId }}&amp;token={{ session.token }}" target="_blank" > Lire l'article </a>
             </div>
 
         {% endfor %}

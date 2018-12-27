@@ -20,9 +20,6 @@ if (!isset($_SESSION['token']))
     $token = $controller->generateToken();
 }
 
-var_dump($_SESSION);
-
-
 if (isset($_GET['action']))
 {
     switch ($_GET['action']) 

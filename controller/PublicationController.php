@@ -22,7 +22,7 @@ class PublicationController extends MainController
         {
             $posts = $publicationManager->showPosts(1);
         }
-        echo $this->getTwig()->render('home.twig', ['posts' => $posts]);
+        echo $this->getTwig()->render('home.twig', ['posts' => $posts, 'session' => $_SESSION]);
     }
 
     public function showPost()
@@ -31,7 +31,7 @@ class PublicationController extends MainController
         $post = $publication->getPost($_GET['publicationId']);
         $comment = new CommentManager();
         $comments = $comment->getComments($_GET['publicationId']);
-        echo $this->getTwig()->render('showPost.twig', ['post' => $post, 'comments' => $comments]);
+        echo $this->getTwig()->render('showPost.twig', ['post' => $post, 'comments' => $comments, 'session' => $_SESSION]);
     }
 
     public function getPost()
@@ -46,7 +46,7 @@ class PublicationController extends MainController
         $this->checkAdmin();
         $publication = new PublicationManager();
         $posts = $publication->getPosts();
-        echo $this->getTwig()->render('adm.twig', ['posts' => $posts, 'token' => $_SESSION['token']]);
+        echo $this->getTwig()->render('adm.twig', ['posts' => $posts, 'session' => $_SESSION]);
     }
 
     public function createPost ()

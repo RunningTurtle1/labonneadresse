@@ -4,7 +4,7 @@ class UserController extends MainController
     public function signIn ()
     {
         $twig = $this->getTwig();
-        echo $twig->render('auth.twig', ['token' => $_SESSION['token']]);
+        echo $twig->render('auth.twig', ['session' => $_SESSION]);
     }
     
     public function userSignIn ($username, $password)
@@ -17,6 +17,7 @@ class UserController extends MainController
             if (($passwordVerify == true) && ($user->getUsertype() == "Admin"))
             {
                 $_SESSION['admin'] = true;
+                $_SESSION['userConnected'] = true;
                 $_SESSION['username'] = $username;
                 header('location:index.php?action=adm');
             }
@@ -32,10 +33,33 @@ class UserController extends MainController
             header('location:index.php?action=auth');
         }
     }
+
+    public function checkForm ($email, $password)
+    {
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
+            throw new exception ('Veuillez saisir une adresse email valide');
+        } 
+        try
+        {
+            $email = $_POST['email'];
+        }
+        catch (Exception $e)
+        {
+            echo 'Une exception a été lancée. Message d\'erreur : ', $e->getMessage();
+        }
+
+        if(strlen($password) < 7)
+        {
+            throw new exception ('Le mot de passe doit contenir au moins 8 caractères');
+        }
+
+    }
     
     public function newAccount ($email, $username, $password)
     {
         $userManager = new Usermanager;
+        $this->checkForm($email, $password);
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $userManager->createAccount($email, $username, $hashedPassword);
 
