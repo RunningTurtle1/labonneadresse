@@ -34,35 +34,39 @@ class UserController extends MainController
         }
     }
 
-    public function checkForm ($email, $password)
+    public function checkForm ($email, $password, $username)
     {
         if(!filter_var($email, FILTER_VALIDATE_EMAIL))
         {
             throw new exception ('Veuillez saisir une adresse email valide');
         } 
-        try
-        {
-            $email = $_POST['email'];
-        }
-        catch (Exception $e)
-        {
-            echo 'Une exception a été lancée. Message d\'erreur : ', $e->getMessage();
-        }
-
+        
         if(strlen($password) < 7)
         {
             throw new exception ('Le mot de passe doit contenir au moins 8 caractères');
         }
 
+        $user = new UserManager;
+        if ($user->connect($username) == !null)
+        {
+            throw new exception ('Ce nom d\'utilisateur est déjà pris');
+        }
     }
     
     public function newAccount ($email, $username, $password)
     {
         $userManager = new Usermanager;
-        $this->checkForm($email, $password);
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $userManager->createAccount($email, $username, $hashedPassword);
-
+        $this->checkForm($email, $password, $username);
+        try
+        {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $userManager->createAccount($email, $username, $hashedPassword);
+            header('location:index.php');
+        }
+        catch (Exception $e)
+        {
+            echo 'Une erreur est survenue : ' . $e.getMessage();
+        }
     }
 
     public function createAccount ()
