@@ -5,6 +5,7 @@ class UserController extends MainController
     {
         $twig = $this->getTwig();
         echo $twig->render('auth.twig', ['session' => $_SESSION]);
+        $this->deleteMessage();
     }
     
     public function userSignIn ($username, $password)
@@ -19,66 +20,80 @@ class UserController extends MainController
                 $_SESSION['admin'] = true;
                 $_SESSION['userConnected'] = true;
                 $_SESSION['username'] = $username;
-                header('location:index.php?action=adm');
+                $this->redirect('index.php?action=adm');
             }
             else if ($passwordVerify == true)
             {
                 $_SESSION['userConnected'] = true;
                 $_SESSION['username'] = $username;
-                header('location:index.php');
+                $this->redirect('index.php');
+            }
+            else
+            {
+                $this->setMessage('Identifiant ou mot de passe incorrect');
+                $this->redirect('index.php?action=auth');
             }
         }
         else
         {
-            header('location:index.php?action=auth');
+            $this->setMessage('Identifiant ou mot de passe incorrect');
+            $this->redirect('index.php?action=auth');
         }
     }
 
     public function checkForm ($email, $password, $username)
     {
+        $user = new UserManager;
         if(!filter_var($email, FILTER_VALIDATE_EMAIL))
         {
-            throw new exception ('Veuillez saisir une adresse email valide');
+            $_SESSION['message'] = 'Veuillez saisir une adresse email valide';
+            return false;
         } 
         
-        if(strlen($password) < 7)
+        else if(strlen($password) < 7)
+        
         {
-            throw new exception ('Le mot de passe doit contenir au moins 8 caractères');
+            $_SESSION['message'] = 'Le mot de passe doit contenir au moins 8 caractères';
+            return false;
         }
-
-        $user = new UserManager;
-        if ($user->connect($username) == !null)
+        else if ($user->connect($username) == !null)
         {
-            throw new exception ('Ce nom d\'utilisateur est déjà pris');
+            $_SESSION['message'] = 'Ce nom d\'utilisateur est déjà pris';
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
     
     public function newAccount ($email, $username, $password)
     {
         $userManager = new Usermanager;
-        $this->checkForm($email, $password, $username);
-        try
+        $formIsValid = $this->checkForm($email, $password, $username);
+        if ($formIsValid)
         {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $userManager->createAccount($email, $username, $hashedPassword);
-            header('location:index.php');
+            $this->redirect('index.php');
         }
-        catch (Exception $e)
+        else
         {
-            echo 'Une erreur est survenue : ' . $e.getMessage();
+            $this->redirect('index.php?action=createaccount');
         }
     }
 
     public function createAccount ()
     {
-        echo $this->getTwig()->render('createaccount.twig');
+        echo $this->getTwig()->render('createaccount.twig', ['session' => $_SESSION]);
+        $this->deleteMessage();
     }
     
     public function userSignOut ()
     {
         session_destroy();
         $_SESSION['userConnected'] = false;
-        header('location:index.php');
+        $this->redirect('index.php');
     }
 }
 ?>

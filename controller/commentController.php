@@ -5,7 +5,7 @@
     {
         if ((!isset($_SESSION['userConnected'])) && (!isset($_SESSION['admin'])))
         {
-            header('location:index.php?action=authentification');
+            $this->redirect('index.php?action=authentification');
             //si l'utilisateur n'est pas connecté il est renvoyé à la page d'authentification
         }
     }
@@ -21,8 +21,8 @@
     {
         $commentManager = new CommentManager();
         $commentManager->addComment($_POST['comment'], $_GET['publicationId'], $_SESSION['username']);
-        $location = 'location:index.php?action=showpost&publicationId=' . $_GET['publicationId'];
-        header($location);
+        $location = 'index.php?action=showpost&publicationId=' . $_GET['publicationId'];
+        $this->redirect($location);
     }
     
     function deletecomment ()
@@ -31,7 +31,7 @@
         $commentManager = new CommentManager();
         $commentManager->deleteComment($_GET['commentId']);
         $commentManager->unreportcomment($_GET['commentId']);
-        header('location:index.php?action=adm');
+        $this->redirect('index.php?action=adm');
     }
     
     function unreportcomment()
@@ -39,7 +39,7 @@
     {
         $commentManager = new CommentManager();
         $commentManager->unreportcomment($_GET['commentId']);
-        header('location:index.php?action=adm');
+        $this->redirect('index.php?action=adm');
     }
     
     function reportComment()
@@ -50,7 +50,7 @@
         {
             $commentManager = new CommentManager();
             $commentManager->reportComment($_GET['commentId'], $_SESSION['username']);
-            header('location:index.php');
+            $this->redirect('index.php');
         }
     }
     

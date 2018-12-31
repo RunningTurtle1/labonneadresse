@@ -1,15 +1,6 @@
 <?php    
 class PublicationController extends MainController
 {
-    public function checkAdmin () 
-    {
-        if (!$_SESSION['admin'])
-        {
-            header('location:index.php?action=auth');
-            //si l'utilisateur n'est pas connecté il est renvoyé à la page d'authentification
-        }
-    }
-
     public function showPosts ()
     {
         $publicationManager = new PublicationManager();
@@ -38,7 +29,6 @@ class PublicationController extends MainController
     {
         $publication = new PublicationManager();
         $post = $publication->getPost($_GET['publicationId']);
-        require('view/adm.php');
     }
 
     public function showPostTitle ()
@@ -46,12 +36,13 @@ class PublicationController extends MainController
         $this->checkAdmin();
         $publication = new PublicationManager();
         $posts = $publication->getPosts();
-        echo $this->getTwig()->render('adm.twig', ['posts' => $posts, 'session' => $_SESSION]);
+        echo $this->getTwig()->render('adm.twig', ['posts' => $posts, 'session' => $_SESSION, 'editpost' => false]);
     }
 
     public function createPost ()
     {
         $this->checkToken();
+        $this->checkAdmin();
         $publication = new PublicationManager();
         $publication->addPub();
     }
@@ -59,16 +50,28 @@ class PublicationController extends MainController
     public function deletePost ()
     {
         $this->checkToken();
+        $this->checkAdmin();
         $publication = new PublicationManager();
         $publication->deletePost($_GET['publicationId']);
         $comments = new CommentManager();
         $comments->deleteComments($_GET['publicationId']);
-        header('location:index.php?action=adm');
+        $this->redirect('index.php?action=adm');
     }
 
     public function editPost ()
     {
         $this->checkToken();
+        $this->checkAdmin();
+        $publication = new PublicationManager();
+        $post = $publication->getPost($_GET['publicationId']);
+        $posts = $publication->getPosts();
+        echo $this->getTwig()->render('adm.twig', ['posts' => $posts, 'session' => $_SESSION, 'post' => $post, 'editpost' => true]);
+    }
+    
+    public function editedPost ()
+    {
+        $this->checkToken();
+        $this->checkAdmin();
         $publication = new PublicationManager();
         $publication->editPost($_GET['publicationId']);
     }

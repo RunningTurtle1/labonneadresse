@@ -3,37 +3,56 @@
 {% block title %} La bonne adresse - Page d'administration {% endblock %}
 
 {% block content %}
+    {% if editpost == true %}    
+        <div>    
+            <h2> Modifier l'article </h2>
+            <form method='post' action='index.php?action=postedited&amp;publicationId={{ post.getId }}'> 
+                <label for='title'> 
+                    <p>Titre de l'article </p>
+                    <input type='text' name='title' id='title' value='{{ post.getTitle }}'> 
+                </label> <br />
+                <label for='text'>
+                    <p>L'article</p>
+                    <textarea name='text' id='text'> {{ post.getText }} </textarea> 
+                </label> <br />
+                <input type='text' value='{{ session.token }}' hidden='true'>
+                <input type='submit' value='Modifier'>
+            </form>
+        </div>
+    {% endif %}
 
-    <div>    
-        <h2> Nouvel article </h2>
-        <form method='post' action='index.php?action=newpost'> 
-            <label for='title'> 
-                <p>Titre de l'article </p>
-                <input type='text' name='title' id='title'> 
-            </label> <br />
-            <label for='text'>
-                <p>L'article</p>
-                <textarea name='text' id='text'> </textarea> 
-            </label> <br />
-            <input type='text' value='{{ session.token }}' hidden='true'>
-            <input type='submit' value='Poster'>
-        </form>
-    </div>
+    {% if editpost == false %}
+        <div>    
+            <h2> Nouvel article </h2>
+            <form method='post' action='index.php?action=newpost'> 
+                <label for='title'> 
+                    <p>Titre de l'article </p>
+                    <input type='text' name='title' id='title'> 
+                </label> <br />
+                <label for='text'>
+                    <p>L'article</p>
+                    <textarea name='text' id='text'> </textarea> 
+                </label> <br />
+                <input type='text' value='{{ session.token }}' hidden='true'>
+                <input type='submit' value='Modifier'>
+            </form>
+        </div>
+        
+        <div>  
+            <h2> Les articles </h2>
+            {% for post in posts %}
 
-    <div>  
-        <h2> Les articles </h2>
-        {% for post in posts %}
+                <div class="post col-lg-6">
+                    <h3>
+                        {{ post.getTitle }}
+                        <em>le {{ post.getDate }}</em>
+                    </h3>
+                    <a href="index.php?action=editpost&amp;publicationId={{ post.getId }}&amp;token={{ session.token }}"> Modifier l'article </a> <br />
+                    <a href="index.php?action=deletepost&amp;publicationId={{ post.getId }}&amp;token={{ session.token }}" > Supprimer cette publication </a> <br />
+                    <a href="index.php?action=showpost&amp;publicationId={{ post.getId }}&amp;token={{ session.token }}" target="_blank" > Lire l'article </a>
+                </div>
 
-            <div class="post col-lg-6">
-                <h3>
-                    {{ post.getTitle }}
-                    <em>le {{ post.getDate }}</em>
-                </h3>
-                <a href="index.php?action=editpost&amp;publicationId={{ post.getId }}&amp;token={{ session.token }}"> Modifier l'article </a> <br />
-                <a href="index.php?action=deletepost&amp;publicationId={{ post.getId }}&amp;token={{ session.token }}" > Supprimer cette publication </a> <br />
-                <a href="index.php?action=showpost&amp;publicationId={{ post.getId }}&amp;token={{ session.token }}" target="_blank" > Lire l'article </a>
-            </div>
-
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}

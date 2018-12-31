@@ -16,22 +16,65 @@ class MainController
         return $this->twig;
     }
 
+    public function redirect($location)
+    {
+        header('location:' . $location);
+    }
+
+    public function checkAdmin () 
+    {
+        $user = new UserManager;
+        if (isset($_SESSION['username']))
+        {
+            $data = $user->connect($_SESSION['username']);
+            if ($data->getUsertype() != 'Admin')
+            {
+                $this->redirect('index.php?action=auth');
+            }
+        }
+        else
+        {
+            $this->redirect('index.php?action=auth');
+        }
+            //on vérifie dans la DB que l'utilisateur a le statut d'admin
+    }
+
     public function generateToken ()
     {
         $token = rand(1000, 99999);
         $_SESSION['token'] = $token;
+        //on crée un token qu'on stocke en session
     }
 
-    function checkToken ()
+    public function checkToken ()
     {
-        if(!($_SESSION['token'] == $_POST['token']) && !($_SESSION['token'] == $_GET['token']))
+        if (isset($_POST['token']))
         {
+           if (!($_SESSION['token'] == $_POST['token']))
+           {
             throw new Exception ('Une erreur est survenue, veuillez réessayer');
+           }
         }
-        else 
+        if (isset($_GET['token']))
         {
-            echo 'Opération réussie';
+            if (!($_SESSION['token'] == $_GET['token']))
+            {
+            throw new Exception ('Une erreur est survenue, veuillez réessayer');
+            }
         }
+       //cette fonction vérifie que c'est bien le même utilisateur qui a rempli et envoyé le formulaire 
+    }
+
+    public function setMessage($message)
+    {
+        $_SESSION['message'] = $message;
+        //défini le message d'erreur à envoyer
+    }
+
+    public function deleteMessage()
+    {
+        unset($_SESSION['message']);
+        //supprimer le message après utilisation
     }
 }
 ?>

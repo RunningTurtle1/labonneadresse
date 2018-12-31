@@ -16,7 +16,9 @@
 
         {% for comment in comments %}
             <div>
-                <p> {{ comment.getText }}</p>
+                <p> {{ comment.getText }} <br/>
+                {{ comment.getUsername }} le {{ comment.getDate }}
+                </p>
             </div>
         {% endfor %}
 

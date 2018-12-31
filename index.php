@@ -10,10 +10,6 @@ if (!isset($_SESSION['userConnected']))
 {
     $_SESSION['userConnected'] = false;
 }
-if (!isset($_SESSION['admin']))
-{
-    $_SESSION['admin'] = false;
-}
 if (!isset($_SESSION['token']))
 {
     $controller = new MainController;
@@ -28,6 +24,15 @@ if (isset($_GET['action']))
         $publication = new PublicationController;
         $publication->createPost();
         break;
+
+        case 'editpost':
+        $publication = new PublicationController;
+        $publication->editPost();
+        break;
+
+        case 'postedited':
+        $publication = new PublicationController;
+        $publication->editedPost();
 
         case 'newcomment':
         $comment = new CommentController;
