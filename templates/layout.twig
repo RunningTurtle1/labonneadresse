@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
+    <link href="public/css/style.css" rel="stylesheet">
+    <link href="public/css/bootstrap.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='bootstrap/css/clean-blog.css'>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script>tinymce.init({ selector:'textarea' });</script>
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
     <nav>
-        <ul>
+        <ul id="navbar">
             {% if session.userConnected == false %}
                 
                 <li> <a href="index.php?action=auth">Me connecter </a></li>
@@ -27,4 +32,6 @@
         </ul>
     </nav>
     {% block content %} {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="public/js/script.js"></script>
 </body> 

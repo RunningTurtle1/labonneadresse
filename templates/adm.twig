@@ -33,10 +33,19 @@
                     <p>L'article</p>
                     <textarea name='text' id='text'> </textarea> 
                 </label> <br />
+                <label for'address'>
+                    <p>Adresse du restaurant</p>
+                    <input type='search' name='address' id='address'/>
+                    <span id="search" class="glyphicon glyphicon-search"> </span>
+                </label> <br/>
+                <input type='text' id='localisation' hidden='true'/>
                 <input type='text' value='{{ session.token }}' hidden='true'>
-                <input type='submit' value='Modifier'>
+                <input type='submit' value='Publier'>
             </form>
+            <ul id='addresses'></ul>
         </div>
+
+        <div> {{ session.message }} </div>
         
         <div>  
             <h2> Les articles </h2>

@@ -14,6 +14,7 @@ class PublicationController extends MainController
             $posts = $publicationManager->showPosts(1);
         }
         echo $this->getTwig()->render('home.twig', ['posts' => $posts, 'session' => $_SESSION]);
+        $this->deleteMessage();
     }
 
     public function showPost()
@@ -41,10 +42,19 @@ class PublicationController extends MainController
 
     public function createPost ()
     {
-        $this->checkToken();
-        $this->checkAdmin();
-        $publication = new PublicationManager();
-        $publication->addPub();
+        if (isset($_POST['title']) && isset($_POST['text']))
+        {
+            $this->checkToken();
+            $this->checkAdmin();
+            $publication = new PublicationManager();
+            $publication->addPub();
+            $this->redirect('index.php');
+        }
+        else
+        {
+            $this->setMessage('Le titre ou le contenu de l\'article n\'est pas défini');
+            $this->redirect('index.php?action=adm');
+        }
     }
 
     public function deletePost ()
