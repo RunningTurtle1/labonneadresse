@@ -23,12 +23,9 @@ $('#search').click(function()
         results.features.forEach(result => 
         {
             const button = new Button(result.properties.label);
-            /*$(button).click(function()
-            {
-                console.log('test');
-                console.log(this.label);
-            });*/
         })
     })
 
 })
+
+$('.mx-auto').style('margin', 'auto');

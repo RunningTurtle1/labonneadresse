@@ -9,29 +9,39 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-    <nav>
-        <ul id="navbar">
-            {% if session.userConnected == false %}
-                
-                <li> <a href="index.php?action=auth">Me connecter </a></li>
-                
-                <li> <a href="index.php?action=createaccount">Créer un compte </a></li>
+    
+    <!-- Navbar -->
 
-            {% endif %}
+    <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.php">La Bonne Adresse</a>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    {% if session.userConnected == false %}
+                        
+                        <li class="nav-item"> <a class="nav-link" href="index.php?action=auth">Me connecter </a></li>
+                        
+                        <li class="nav-item"> <a class="nav-link" href="index.php?action=createaccount">Créer un compte </a></li>
 
-            {% if session.userConnected == true %}
-                
-                <li> <a href='index.php?action=signout'>Me déconnecter </a> </li>
+                    {% endif %}
 
-            {% endif %}
+                    {% if session.userConnected == true %}
+                        
+                        <li class="nav-item"> <a class="nav-link" href='index.php?action=signout'>Me déconnecter </a> </li>
 
-            <li> <a href="index.php?action=adm"> Page d'administration </a></li>
-            
-            <li> <a href="index.php">Retour à la page d'acceuil </a> </li>
+                    {% endif %}
 
-        </ul>
+                    <li class="nav-item"> <a class="nav-link" href="index.php?action=adm"> Page d'administration </a></li>
+                    
+                    <li class="nav-item"> <a class="nav-link" href="index.php">Retour à la page d'acceuil </a> </li>
+
+                </ul>
+            </div>
+        </div>
     </nav>
+
     {% block content %} {% endblock %}
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="public/js/script.js"></script>
+    <script src="public/js/clean-blog.min.js"></script>
 </body> 

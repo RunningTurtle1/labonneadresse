@@ -2,16 +2,20 @@
 
 {% block content %}
 
-    <form method='post' action='index.php?action=authentification'>
-        <label for='username'>Votre nom d'utilisateur <br/>
-            <input type='text' name="username" id='username'/>
-        </label><br/>
-        <label for='password'>Votre mot de passe </br>
-            <input type='password' name='password' id='password'/>
-        </label><br/>
-        <input type='hidden' value='{{ session.token }}'/>
-        <input type='submit' value='Me connecter'/>
-    </form>
+    <div class="col-l-8 col-md-10 mx-auto form">
+        <form method='post' action='index.php?action=authentification'>
+            <div class="form-group">
+                <label for='username'>Votre nom d'utilisateur <br/>
+                    <input type='text' name="username" id='username' class='form-control'/>
+                </label><br/>
+                <label for='password'>Votre mot de passe </br>
+                    <input type='password' name='password' id='password' class='form-control'/>
+                </label><br/>
+                <input type='hidden' value='{{ session.token }}'/>
+                <input type='submit' value='Me connecter'/>
+            </div>
+        </form>
+    </div>
 
     <p> {{ session.message }} <p>
 
