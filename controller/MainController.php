@@ -65,6 +65,21 @@ class MainController
        //cette fonction vérifie que c'est bien le même utilisateur qui a rempli et envoyé le formulaire 
     }
 
+    public function checkForm($inputs)
+    {
+        foreach($inputs as $input)
+        {
+            if(empty($input))
+            {
+                $this->setMessage('Un champ n\'a pas été renseigné');
+                $this->redirect('index.php?action=adm');
+            }
+        }
+        
+        //fonction qui vérifie que tous les champs d'un formulaire sont remplis
+    }
+
+
     public function setMessage($message)
     {
         $_SESSION['message'] = $message;

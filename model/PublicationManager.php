@@ -87,8 +87,9 @@ class PublicationManager extends ConnexionManager
     //ajoute un article écrit par l'auteur à base de données
     {
         $db = $this->dbconnect();
-        $req = $db->prepare('INSERT INTO publication(publicationTitle, publicationText, publicationDate, restaurantPlace) VALUE (?, ?, NOW(), ?)');
-        $req->execute(array($_POST['title'], $_POST['text'], $_POST['address']));
+        $req = $db->prepare('INSERT INTO publication(publicationTitle, publicationText, publicationDate, restaurantPlace, Long, Lat) VALUE (?, ?, NOW(), ?, ?, ?)');
+        $req->execute(array($_POST['title'], $_POST['text'], $_POST['address'], $_POST['long'], $_POST['lat']));
+        var_dump($_POST);
     }
 
 }

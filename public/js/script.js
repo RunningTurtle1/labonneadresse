@@ -1,31 +1,34 @@
 const adresse = $('#addresses');
 
-class Button {
-    constructor(label) {
+class AddressButton {
+    constructor(label, long, lat) {
         $(adresse).append('<li class=\'list\'> </li>');
         const button = $('.list:last-child').append('<button class=\'adresses\'>' + label + '</button>');
         this.label = label;
-        console.log(this.label);
+        this.long = long;
+        this.lat = lat;
         let that = this;
-        button.click(function()
+        button.click(function(e)
         {
+            e.preventDefault();
             $('#address').val(that.label);
+            $('#long').val(that.long);
+            $('#lat').val(that.lat);
         })
         return this.button;
     }
 }
 
-$('#search').click(function()
+$('#search').click(function(e)
 {
+    e.preventDefault();
     $('.list').remove();
     let url = 'https://api-adresse.data.gouv.fr/search/?q=' + $('#address').val();
     $.getJSON(url, function(results) {
         results.features.forEach(result => 
         {
-            const button = new Button(result.properties.label);
+            const button = new AddressButton(result.properties.label, result.geometry.coordinates[0], result.geometry.coordinates[1]);
         })
     })
 
 })
-
-$('.mx-auto').style('margin', 'auto');

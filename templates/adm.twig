@@ -36,13 +36,14 @@
                 <label for'address'>
                     <p>Adresse du restaurant</p>
                     <input type='search' name='address' id='address'/>
-                    <span id="search" class="glyphicon glyphicon-search"> </span>
+                    <button id="search" class="glyphicon glyphicon-search"> </button>
+                    <ul id='addresses'></ul>
                 </label> <br/>
-                <input type='text' id='localisation' hidden='true'/>
+                <input type='text' name='long' id='long' hidden='true'/>
+                <input type='text' name='lat' id='lat' hidden='true'/>
                 <input type='text' value='{{ session.token }}' hidden='true'>
                 <input type='submit' value='Publier'>
             </form>
-            <ul id='addresses'></ul>
         </div>
 
         <div> {{ session.message }} </div>

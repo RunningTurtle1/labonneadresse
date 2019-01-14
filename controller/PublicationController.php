@@ -42,19 +42,12 @@ class PublicationController extends MainController
 
     public function createPost ()
     {
-        if (isset($_POST['title']) && isset($_POST['text']))
-        {
-            $this->checkToken();
-            $this->checkAdmin();
-            $publication = new PublicationManager();
-            $publication->addPub();
-            $this->redirect('index.php');
-        }
-        else
-        {
-            $this->setMessage('Le titre ou le contenu de l\'article n\'est pas défini');
-            $this->redirect('index.php?action=adm');
-        }
+        $this->checkToken();
+        $this->checkAdmin();
+        //$this->checkForm(array($_POST['title'], $_POST['text']));
+        $publication = new PublicationManager();
+        $publication->addPub();
+        //$this->redirect('index.php');
     }
 
     public function deletePost ()
