@@ -83,12 +83,13 @@ class PublicationManager extends ConnexionManager
         $req->execute(array($_POST['title'], $_POST['text'], $publicationId));
     }
 
-    public function addPub ()
+    public function addPub ($title, $text, $address, $long, $lat)
     //ajoute un article écrit par l'auteur à base de données
     {
         $db = $this->dbconnect();
-        $req = $db->prepare('INSERT INTO publication(publicationTitle, publicationText, publicationDate, restaurantPlace, Long, Lat) VALUE (?, ?, NOW(), ?, ?, ?)');
-        $req->execute(array($_POST['title'], $_POST['text'], $_POST['address'], $_POST['long'], $_POST['lat']));
+        $req = $db->prepare('INSERT INTO publication(publicationTitle, publicationText, publicationDate, restaurantPlace, Longitude, Lat) VALUE (:title, :text, NOW(), :address, :long, :lat)');
+        $req->execute(array(':title' => $title, ':text' => $text, ':address' => $address, ':long' => $long, ':lat' => $lat));
+        echo "\nPDO::errorCode(): ", $req->errorCode();
         var_dump($_POST);
     }
 

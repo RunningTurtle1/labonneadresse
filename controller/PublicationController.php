@@ -46,8 +46,8 @@ class PublicationController extends MainController
         $this->checkAdmin();
         //$this->checkForm(array($_POST['title'], $_POST['text']));
         $publication = new PublicationManager();
-        $publication->addPub();
-        //$this->redirect('index.php');
+        $publication->addPub($_POST['title'], $_POST['text'], $_POST['address'], $_POST['long'], $_POST['lat']);
+        $this->redirect('index.php');
     }
 
     public function deletePost ()
