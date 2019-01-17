@@ -86,6 +86,11 @@ if (isset($_GET['action']))
         $user->userSignOut();
         break;
 
+        case 'api':
+        $api = new APIController;
+        $api->getLocations();
+        break;
+
         default:
         $publication = new PublicationController;
         $posts = $publication->showPosts();

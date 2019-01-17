@@ -44,10 +44,38 @@ class PublicationController extends MainController
     {
         $this->checkToken();
         $this->checkAdmin();
-        //$this->checkForm(array($_POST['title'], $_POST['text']));
+        $this->checkForm(array($_POST['title'], $_POST['text']));
+        $fileName = $this->upload('picture');
         $publication = new PublicationManager();
         $publication->addPub($_POST['title'], $_POST['text'], $_POST['address'], $_POST['long'], $_POST['lat']);
         $this->redirect('index.php');
+    }
+
+    public function upload ($index)
+    {
+       //On test que le fichier soit correctement uploadé
+         if (!isset($_FILES[$index]) OR $_FILES[$index]['error'] > 0) 
+        {
+            return FALSE;
+        }
+       //Test de la taille du fichier
+         if ($_FILES[$index]['size'] > 150000) 
+        {
+            echo 'Fichier trop lourd';
+            return FALSE;
+        }
+       //Test de  l'extension du fichier
+         $ext = substr(strrchr($_FILES[$index]['name'],'.'),1);
+         $extensions = array('png','gif','jpg','jpeg');
+         if ($extensions !== FALSE AND !in_array($ext, $extensions))
+        {
+            return FALSE;
+        }
+       //Déplacement du fichier dans un repertoire
+        $fileName = md5($_FILES[$index]['name']) . '.' .  $ext;
+        $destination = 'public/images/' . $fileName;
+        move_uploaded_file($_FILES[$index]['tmp_name'], $destination);
+        return $fileName;
     }
 
     public function deletePost ()

@@ -54,6 +54,13 @@ class PublicationManager extends ConnexionManager
         }
         return $posts;
     }
+
+    public function getLocations()
+    {
+        $db = $this->dbconnect();
+        $req = $db->query('SELECT restaurantPlace, Longitude, Lat FROM publication');
+        return $req->fetchAll();
+    }
     
     public function getPost ($publicationId)
     //récupère une publication en fonction de son identifiant

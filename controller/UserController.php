@@ -41,7 +41,7 @@ class UserController extends MainController
         }
     }
 
-    public function checkForm ($email, $password, $username)
+    public function checkSubForm ($email, $password, $username)
     {
         $user = new UserManager;
         if(!filter_var($email, FILTER_VALIDATE_EMAIL))
@@ -70,7 +70,7 @@ class UserController extends MainController
     public function newAccount ($email, $username, $password)
     {
         $userManager = new Usermanager;
-        $formIsValid = $this->checkForm($email, $password, $username);
+        $formIsValid = $this->checkSubForm($email, $password, $username);
         if ($formIsValid)
         {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

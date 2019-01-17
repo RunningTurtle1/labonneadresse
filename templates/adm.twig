@@ -24,7 +24,7 @@
     {% if editpost == false %}
         <div>    
             <h2> Nouvel article </h2>
-            <form method='post' action='index.php?action=newpost'> 
+            <form method='post' action='index.php?action=newpost' enctype="multipart/form-data"> 
                 <label for='title'> 
                     <p>Titre de l'article </p>
                     <input type='text' name='title' id='title'> 
@@ -42,6 +42,7 @@
                 <input type='text' name='long' id='long' hidden='true'/>
                 <input type='text' name='lat' id='lat' hidden='true'/>
                 <input type='text' value='{{ session.token }}' hidden='true'>
+                <input type='file' name='picture' id='picture'>
                 <input type='submit' value='Publier'>
             </form>
         </div>
