@@ -6,13 +6,15 @@ class Publication
     private $_title;
     private $_text;
     private $_date;
+    private $_picture;
 
-    public function __construct ($id, $title, $text, $date)
+    public function __construct ($id, $title, $text, $date, $picture=NULL)
     {
         $this->setId($id);
         $this->setTitle($title);
         $this->setText($text);
         $this->setDate($date);
+        $this->setPicture($picture);
     }
 
     public function setId ($id)
@@ -55,6 +57,10 @@ class Publication
         }
     }
 
+    public function setPicture ($picture)
+    {
+        $this->_picture = $picture;
+    }
     public function getId ()
     {
         return $this->_id;
@@ -73,6 +79,11 @@ class Publication
     public function getDate ()
     {
         return $this->_date;
+    }
+
+    public function getPicture ()
+    {
+        return $this->_picture;
     }
 }
 ?>

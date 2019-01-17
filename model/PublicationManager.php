@@ -69,7 +69,7 @@ class PublicationManager extends ConnexionManager
         $req = $db->prepare('SELECT * FROM publication WHERE publicationId = ?');
         $req->execute(array($publicationId));
         $data = $req->fetch();
-        $post = new Publication($data['publicationId'], $data['publicationTitle'], $data['publicationText'], $data['publicationDate']);
+        $post = new Publication($data['publicationId'], $data['publicationTitle'], $data['publicationText'], $data['publicationDate'], $data['pictureName']);
         return $post;
     }
 
@@ -90,14 +90,12 @@ class PublicationManager extends ConnexionManager
         $req->execute(array($_POST['title'], $_POST['text'], $publicationId));
     }
 
-    public function addPub ($title, $text, $address, $long, $lat)
+    public function addPub ($title, $text, $address, $long, $lat, $pictureName)
     //ajoute un article écrit par l'auteur à base de données
     {
         $db = $this->dbconnect();
-        $req = $db->prepare('INSERT INTO publication(publicationTitle, publicationText, publicationDate, restaurantPlace, Longitude, Lat) VALUE (:title, :text, NOW(), :address, :long, :lat)');
-        $req->execute(array(':title' => $title, ':text' => $text, ':address' => $address, ':long' => $long, ':lat' => $lat));
-        echo "\nPDO::errorCode(): ", $req->errorCode();
-        var_dump($_POST);
+        $req = $db->prepare('INSERT INTO publication(publicationTitle, publicationText, publicationDate, restaurantPlace, Longitude, Lat, pictureName) VALUE (:title, :text, NOW(), :address, :long, :lat, :pictureName)');
+        $req->execute(array(':title' => $title, ':text' => $text, ':address' => $address, ':long' => $long, ':lat' => $lat, ':pictureName' => $pictureName));
     }
 
 }

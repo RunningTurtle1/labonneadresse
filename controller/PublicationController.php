@@ -47,7 +47,7 @@ class PublicationController extends MainController
         $this->checkForm(array($_POST['title'], $_POST['text']));
         $fileName = $this->upload('picture');
         $publication = new PublicationManager();
-        $publication->addPub($_POST['title'], $_POST['text'], $_POST['address'], $_POST['long'], $_POST['lat']);
+        $publication->addPub($_POST['title'], $_POST['text'], $_POST['address'], $_POST['long'], $_POST['lat'], $fileName);
         $this->redirect('index.php');
     }
 
