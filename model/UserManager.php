@@ -1,4 +1,6 @@
 <?php
+namespace Model;
+use Model\User;
 class UserManager extends ConnexionManager
 {
     public function connect ($username)

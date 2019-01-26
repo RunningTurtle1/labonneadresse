@@ -55,5 +55,25 @@
 
 }
     
+.side-menu
+{
+    height: 250px;
+    position: -webkit-sticky !important;;
+    position: sticky !important;
+    top: 80px;
 }
 
+#map
+{
+    height: 250px;
+}
+
+#subform
+{
+    margin-top: 100px;
+}
+
+.featured-image img 
+{
+    height: 250px;
+}

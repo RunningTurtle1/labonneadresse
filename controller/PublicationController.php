@@ -1,19 +1,19 @@
-<?php    
+<?php
+namespace Controller;
+use Model\PublicationManager;
+use Model\CommentManager;
 class PublicationController extends MainController
 {
-    public function showPosts ()
+    public function showPosts()
     {
         $publicationManager = new PublicationManager();
         $nbPage = $publicationManager->nbPages();
-        if(isset($_GET['cPage']) && (($_GET['cPage']) >0) && (($_GET['cPage']) <= $nbPage))
-        {
+        if (isset($_GET['cPage']) && (($_GET['cPage']) > 0) && (($_GET['cPage']) <= $nbPage)) {
             $posts = $publicationManager->showPosts($_GET['cPage']);
-        }
-        else
-        {
+        } else {
             $posts = $publicationManager->showPosts(1);
         }
-        echo $this->getTwig()->render('home.twig', ['posts' => $posts, 'session' => $_SESSION]);
+        echo $this->getTwig()->render('home.twig', ['posts' => $posts, 'session' => $_SESSION, 'pages' => $nbPage]);
         $this->deleteMessage();
     }
 
@@ -32,7 +32,7 @@ class PublicationController extends MainController
         $post = $publication->getPost($_GET['publicationId']);
     }
 
-    public function showPostTitle ()
+    public function showPostTitle()
     {
         $this->checkAdmin();
         $publication = new PublicationManager();
@@ -40,45 +40,41 @@ class PublicationController extends MainController
         echo $this->getTwig()->render('adm.twig', ['posts' => $posts, 'session' => $_SESSION, 'editpost' => false]);
     }
 
-    public function createPost ()
+    public function createPost()
     {
         $this->checkToken();
         $this->checkAdmin();
-        $this->checkForm(array($_POST['title'], $_POST['text']));
+        $this->checkForm(array($_POST['title'], $_POST['text'], $_POST['long'], $_POST['lat']));
         $fileName = $this->upload('picture');
         $publication = new PublicationManager();
         $publication->addPub($_POST['title'], $_POST['text'], $_POST['address'], $_POST['long'], $_POST['lat'], $fileName);
         $this->redirect('index.php');
     }
 
-    public function upload ($index)
+    public function upload($index)
     {
-       //On test que le fichier soit correctement uploadé
-         if (!isset($_FILES[$index]) OR $_FILES[$index]['error'] > 0) 
-        {
-            return FALSE;
+        //On test que le fichier soit correctement uploadé
+        if (!isset($_FILES[$index]) or $_FILES[$index]['error'] > 0) {
+            return false;
         }
-       //Test de la taille du fichier
-         if ($_FILES[$index]['size'] > 150000) 
-        {
-            echo 'Fichier trop lourd';
-            return FALSE;
+        //Test de la taille du fichier
+        if ($_FILES[$index]['size'] > 1000000) {
+            return false;
         }
-       //Test de  l'extension du fichier
-         $ext = substr(strrchr($_FILES[$index]['name'],'.'),1);
-         $extensions = array('png','gif','jpg','jpeg');
-         if ($extensions !== FALSE AND !in_array($ext, $extensions))
-        {
-            return FALSE;
+        //Test de  l'extension du fichier
+        $ext = substr(strrchr($_FILES[$index]['name'], '.'), 1);
+        $extensions = array('png', 'gif', 'jpg', 'jpeg');
+        if ($extensions !== false and !in_array($ext, $extensions)) {
+            return false;
         }
-       //Déplacement du fichier dans un repertoire
-        $fileName = md5($_FILES[$index]['name']) . '.' .  $ext;
+        //Déplacement du fichier dans un repertoire
+        $fileName = md5($_FILES[$index]['name']) . '.' . $ext;
         $destination = 'public/images/' . $fileName;
         move_uploaded_file($_FILES[$index]['tmp_name'], $destination);
         return $fileName;
     }
 
-    public function deletePost ()
+    public function deletePost()
     {
         $this->checkToken();
         $this->checkAdmin();
@@ -89,7 +85,7 @@ class PublicationController extends MainController
         $this->redirect('index.php?action=adm');
     }
 
-    public function editPost ()
+    public function editPost()
     {
         $this->checkToken();
         $this->checkAdmin();
@@ -98,8 +94,8 @@ class PublicationController extends MainController
         $posts = $publication->getPosts();
         echo $this->getTwig()->render('adm.twig', ['posts' => $posts, 'session' => $_SESSION, 'post' => $post, 'editpost' => true]);
     }
-    
-    public function editedPost ()
+
+    public function editedPost()
     {
         $this->checkToken();
         $this->checkAdmin();
@@ -107,19 +103,16 @@ class PublicationController extends MainController
         $publication->editPost($_GET['publicationId']);
     }
 
-    public function orderReports ()
+    public function orderReports()
     {
         $commentManager = new CommentManager();
         $req = $commentManager->orderReports();
         $comments = [];
-        while ($data = $req->fetch())
-        {        
-        $commentId = $data['commentId'];
-            $comments[] = ['comment'=>$commentManager->getComment($commentId),'count'=>$data['reports']];
+        while ($data = $req->fetch()) {
+            $commentId = $data['commentId'];
+            $comments[] = ['comment' => $commentManager->getComment($commentId), 'count' => $data['reports']];
         }
         $req->closeCursor();
         return $comments;
     }
 }
-
-?>

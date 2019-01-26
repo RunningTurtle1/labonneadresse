@@ -2,6 +2,11 @@
 
 require 'model/autoload.php'; 
 Autoloader::register(); 
+use Controller\MainController;
+use Controller\PublicationController;
+use Controller\UserController;
+use Controller\CommentController;
+
 
 require 'vendor/autoload.php';
 
@@ -100,7 +105,7 @@ if (isset($_GET['action']))
 }
 else
 {
-    $publication = new PublicationController;
+    $publication = new Controller\PublicationController;
     $posts = $publication->showPosts();
 }
 ?>

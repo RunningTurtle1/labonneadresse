@@ -1,4 +1,6 @@
 <?php
+namespace Controller;
+use Model\UserManager;
 class MainController
 {
     private $twig;
@@ -6,8 +8,8 @@ class MainController
 
     public function __construct()
     {
-        $this->loader = new Twig_Loader_Filesystem('templates');
-        $this->twig = new Twig_Environment($this->loader);
+        $this->loader = new \Twig_Loader_Filesystem('templates');
+        $this->twig = new \Twig_Environment($this->loader);
 
     }
 
@@ -69,10 +71,11 @@ class MainController
     {
         foreach($inputs as $input)
         {
-            if(empty($input))
+            if(!isset($input) || ($input == ''))
             {
                 $this->setMessage('Un champ n\'a pas été renseigné');
                 $this->redirect('index.php?action=adm');
+                exit();
             }
         }
         

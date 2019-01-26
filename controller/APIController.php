@@ -5,8 +5,9 @@ class APIController
     {
         header('Content-Type: application/json');
         $publication = new PublicationManager;
-        $pubs = $publication->getLocations();
+        $pubs = $publication->getInformations();
         echo json_encode($pubs);
+        exit();
     }
 }
 ?>

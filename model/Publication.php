@@ -1,5 +1,5 @@
 <?php
-
+namespace Model;
 class Publication 
 {
     private $_id;

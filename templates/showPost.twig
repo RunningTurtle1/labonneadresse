@@ -10,7 +10,7 @@
         <div class="row title">
           <div class="col-lg-8 col-md-10 mx-auto ">
             <div class="site-heading">
-              <h1>{{ post.getTitle }}</h1>
+              <h1>{{ post.getTitle|raw }}</h1>
             </div>
           </div>
         </div>
@@ -19,8 +19,8 @@
     
     <div>
 
-        <h3>{{ post.getTitle}}</h3>
-        <p>{{post.getText}}</p>
+        <h3>{{ post.getTitle|raw}}</h3>
+        <p>{{post.getText|raw}}</p>
     
     </div>
 
@@ -29,7 +29,7 @@
 
         {% for comment in comments %}
             <div>
-                <p> {{ comment.getText }} <br/>
+                <p> {{ comment.getText|raw }} <br/>
                 {{ comment.getUsername }} le {{ comment.getDate }}
                 </p>
             </div>

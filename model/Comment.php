@@ -1,5 +1,5 @@
 <?php
-
+namespace Model;
 class Comment 
 {
     private $_id;

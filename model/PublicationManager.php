@@ -1,5 +1,5 @@
 <?php
-
+namespace Model;
 class PublicationManager extends ConnexionManager
 {     
     public function showPosts ($cPage)
@@ -14,14 +14,14 @@ class PublicationManager extends ConnexionManager
         $var = (($cPage - 1) * $perPage);
         //le première partie de la fonction permet de préparer la pagination du des articles
         $req = $db->prepare('SELECT * FROM publication ORDER BY publicationId DESC LIMIT :cPage , :perPage ');
-        $req->bindValue(':cPage', $var, PDO::PARAM_INT);
-        $req->bindValue(':perPage', $perPage, PDO::PARAM_INT);
+        $req->bindValue(':cPage', $var, \PDO::PARAM_INT);
+        $req->bindValue(':perPage', $perPage, \PDO::PARAM_INT);
         //on récupère les articles correspondant à la page selectionnée
         $req->execute();
         $posts = [];
         while ($data = $req->fetch())
         {
-            $publication = new Publication($data['publicationId'], $data['publicationTitle'], $data['publicationText'], $data['publicationDate']);
+            $publication = new Publication($data['publicationId'], $data['publicationTitle'], $data['publicationText'], $data['publicationDate'], $data['pictureName']);
             $posts[] = $publication;
         }
         //on met directement les données dans un tableau avant de les envoyer au controller
@@ -55,10 +55,10 @@ class PublicationManager extends ConnexionManager
         return $posts;
     }
 
-    public function getLocations()
+    public function getInformations()
     {
         $db = $this->dbconnect();
-        $req = $db->query('SELECT restaurantPlace, Longitude, Lat FROM publication');
+        $req = $db->query('SELECT publicationId, publicationTitle,restaurantPlace, Longitude, Lat FROM publication');
         return $req->fetchAll();
     }
     
@@ -78,7 +78,7 @@ class PublicationManager extends ConnexionManager
     {
         $db = $this->dbconnect();
         $req = $db->prepare('DELETE FROM publication WHERE publicationId = :publicationId');
-        $req->bindValue(':publicationId', $publicationId, PDO::PARAM_INT);
+        $req->bindValue(':publicationId', $publicationId, \PDO::PARAM_INT);
         $req->execute();
     }
     

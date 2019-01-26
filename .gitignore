@@ -1,5 +1,9 @@
 /vendor
 /twig
-/model/accesscode.php
+accesscode.php
 /symfony
 images/
+public/css/index.html
+public/fonts/index.html
+public/index.html
+public/js/index.html

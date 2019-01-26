@@ -1,4 +1,6 @@
 <?php
+namespace Controller;
+use Model\CommentManager;
  class CommentController extends MainController
  {
     function checkUserLoggin () 

@@ -1,4 +1,7 @@
 <?php
+namespace Model;
+use Model\Comment;
+use Model\CommentManager;
 class CommentManager extends ConnexionManager
 {
     public function getComments ($publicationId)
@@ -50,14 +53,6 @@ class CommentManager extends ConnexionManager
         $req->execute(array($commentId));
     }
 
-    public function reportComment ($commentId, $reporterId)
-    //ajoute le commentaire dans la table des objets signalés
-    {
-        $db = $this->dbconnect();
-        $req = $db->prepare('INSERT INTO comments_report(commentId, reporterId) VALUES (?, ?)');
-        $req->execute(array($commentId, $reporterId));
-    }
-
     public function getComment ($commentId)
     //récupère un commentaire en fonction de son id pour l'afficher dans l'interface d'administration
     {
@@ -67,13 +62,6 @@ class CommentManager extends ConnexionManager
         WHERE commentId = ?');
         $req->execute(array($commentId));
         return $req->fetch();
-    }
-
-    public function orderReports ()
-    {
-        $db = $this->dbconnect();
-        $req = $db->query('SELECT COUNT(DISTINCT reporterId) AS reports, commentId FROM comments_report GROUP BY commentId');
-        return $req;
     }
 }
 ?>

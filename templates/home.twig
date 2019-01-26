@@ -20,17 +20,51 @@
       </div>
     </header>
     
+
+    <!-- PUBLICATIONS -->
+
     <div class='container'>
         <div class="row publications">
-            <div class="col-lg-8 col-md-10 mx-auto"> 
+            
+            <div class="col-lg-9 col-md-10"> 
                 {% for post in posts %}
+                    <div class="featured-image"> <img src="public/images/{{ post.getPicture }}" /></div>
                     <div class="post-preview">    
                         <a href='index.php?action=showpost&amp;publicationId={{post.getId}}'> <h3> {{post.getTitle}} </h3> </a>
-                        <p>{{post.getText}}</p>
+                        <p>{{post.getText|raw}}</p>
                     </div>
                     <hr>
                 {% endfor %}
             </div>
+
+            <div class="col-lg-3">
+
+                <div class="side-menu">
+                    <div id="map"> 
+                    </div>
+
+                    <div id="panneau">
+                        <p>Nom du restaurant : <span id="restaurantName"></span></p>
+                        <p>Adresse : <span id="restaurantPlace"></span></p>
+                        <p><span id="popularity"></span> personnes aiment ce restaurant</p>
+                        <a href="#" id="linktopost">La critique !</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
+            
     </div>
+
+    <div>
+        {% for i in 1..pages %}
+             <a href="index.php?cPage={{ i }}"> {{ i }} </a>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDb6m0TmjJrLSglS2WEaq95MS1HoZjeU"></script>
+    <script src="public/js/map.js"></script>
+
 {% endblock %}

@@ -1,8 +1,6 @@
-const adresse = $('#addresses');
-
 class AddressButton {
     constructor(label, long, lat) {
-        $(adresse).append('<li class=\'list\'> </li>');
+        $('#addresses').append('<li class=\'list\'> </li>');
         const button = $('.list:last-child').append('<button class=\'adresses\'>' + label + '</button>');
         this.label = label;
         this.long = long;
@@ -22,7 +20,7 @@ class AddressButton {
 $('#search').click(function(e)
 {
     e.preventDefault();
-    $('.list').remove();
+    $('#addresses').empty();
     let url = 'https://api-adresse.data.gouv.fr/search/?q=' + $('#address').val();
     $.getJSON(url, function(results) {
         results.features.forEach(result => 
@@ -32,3 +30,4 @@ $('#search').click(function(e)
     })
 
 })
+
