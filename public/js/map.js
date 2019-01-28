@@ -33,7 +33,6 @@ var Restaurant = {
         var that = this;
         this.marker.addListener("click", function () 
         {
-            //console.log(that.name);
             $('#restaurantName').text(that.name);
             $('#restaurantPlace').text(that.adresse);
             $('#panneau').show('slow');

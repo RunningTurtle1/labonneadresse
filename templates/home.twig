@@ -12,7 +12,7 @@
         <div class="row title">
           <div class="col-lg-8 col-md-10 mx-auto ">
             <div class="site-heading">
-              <h1>La Bonne Adresse</h1>
+              <h1>La Bonne Adresse <i class="fas fa-utensils"></i></h1> 
               <span class="subheading">Le rendez-vous des gourmets</span>
             </div>
           </div>
@@ -26,18 +26,7 @@
     <div class='container'>
         <div class="row publications">
             
-            <div class="col-lg-9 col-md-10"> 
-                {% for post in posts %}
-                    <div class="featured-image"> <img src="public/images/{{ post.getPicture }}" /></div>
-                    <div class="post-preview">    
-                        <a href='index.php?action=showpost&amp;publicationId={{post.getId}}'> <h3> {{post.getTitle}} </h3> </a>
-                        <p>{{post.getText|raw}}</p>
-                    </div>
-                    <hr>
-                {% endfor %}
-            </div>
-
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-lg-push-9">
 
                 <div class="side-menu">
                     <div id="map"> 
@@ -52,11 +41,28 @@
                 </div>
             </div>
 
+            <div class="col-lg-9 col-lg-pull-3 col-md-10"> 
+                {% for post in posts %}
+                    <div class="post-preview">    
+                        <a href='index.php?action=showpost&amp;publicationId={{post.getId}}'> <h3 class='publication-title'><i class="fas fa-certificate"></i> {{post.getTitle}} </h3> </a>
+                        <div class="featured-image"> <img src="public/images/{{ post.getPicture }}" />
+                        <div class="publicationtext">
+                            {{post.getText|raw}}[...]
+                            <br/>
+                            <a href="index.php?action=showpost&amp;publicationId={{post.getId}}">Lire la suite</a>
+                        </div>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+
+
         </div>
             
     </div>
 
-    <div>
+    <div class="page">
         {% for i in 1..pages %}
              <a href="index.php?cPage={{ i }}"> {{ i }} </a>
         {% endfor %}

@@ -1,4 +1,6 @@
 <?php
+namespace Controller;
+use Model\PublicationManager;
 class APIController 
 {
     public function getLocations()

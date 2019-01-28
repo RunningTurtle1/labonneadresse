@@ -21,7 +21,7 @@ class PublicationManager extends ConnexionManager
         $posts = [];
         while ($data = $req->fetch())
         {
-            $publication = new Publication($data['publicationId'], $data['publicationTitle'], $data['publicationText'], $data['publicationDate'], $data['pictureName']);
+            $publication = new Publication($data['publicationId'], strtoupper($data['publicationTitle']), substr($data['publicationText'],0 ,800), $data['publicationDate'], $data['pictureName']);
             $posts[] = $publication;
         }
         //on met directement les données dans un tableau avant de les envoyer au controller

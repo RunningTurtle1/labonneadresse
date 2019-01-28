@@ -6,6 +6,7 @@ use Controller\MainController;
 use Controller\PublicationController;
 use Controller\UserController;
 use Controller\CommentController;
+use Controller\APIController;
 
 
 require 'vendor/autoload.php';
