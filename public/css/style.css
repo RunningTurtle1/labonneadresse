@@ -2,6 +2,7 @@ body
 {
     background-color: #f2f2f2 !important;
 }
+
 #mainNav
 {
     z-index: 999;
@@ -56,9 +57,10 @@ body
     display: flex;
     justify-content: space-around;
 }
-.post-preview a h3
+.publication-title, .comment-title, .adm-title
 {
     color: #b30000;
+    margin-bottom: 25px;
 }
 .formcontainer
 {
@@ -94,6 +96,14 @@ body
     height: 250px;
 }
 
+#panneau
+{
+    margin-top: 15px;
+    border: 1px solid black;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #ffe6e6;
+}
 
 .featured-image img 
 {
@@ -106,10 +116,26 @@ body
 {
     text-align: justify;
 }
+
+#linktopost, .submit
+{
+    border: none;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    margin: 8px;
+    padding: 0 10px;
+    border-radius: 20px;
+    background-color: #b30000;
+    color: #f2f2f2;
+    font-weight: bold;
+}
+
 .page
 {
     text-align: center;   
 }
+
 .page a 
 {
     display: inline-block;
@@ -124,7 +150,74 @@ body
 }
 .page a:hover
 {
-    background-color: #337ab7;
+    background-color: #e60000;
     color: white;
     text-decoration: none;
+}
+
+.block-comment
+{
+    margin: 0 !important;
+}
+
+.comment p
+{
+    margin: 20px 0px;
+}
+
+.posteditor
+{
+    margin-top: 80px;
+}
+.posteditor h2, .articles-interface h2
+{
+    text-align: center;
+}
+.posteditor label
+{
+    width: 90%;
+    margin-left: 5%;
+}
+
+#search
+{
+    text-align: center;   
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    margin: 8px;
+    border: none;
+    border-radius: 50%;
+    background-color: #b30000;
+    color: #f2f2f2;
+}
+#search::hover
+{
+    background-color: #e60000;
+    color: white;
+    text-decoration: none;
+}
+
+.text-input
+{
+    height: 40px;
+    width: 250px;
+    border-radius: 20px;
+}
+
+.article-box
+{
+    border: 1px black solid;
+    text-align: center;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 30px;
+}
+
+.articles
+{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }

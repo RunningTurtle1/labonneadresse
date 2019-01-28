@@ -69,7 +69,7 @@ class PublicationManager extends ConnexionManager
         $req = $db->prepare('SELECT * FROM publication WHERE publicationId = ?');
         $req->execute(array($publicationId));
         $data = $req->fetch();
-        $post = new Publication($data['publicationId'], $data['publicationTitle'], $data['publicationText'], $data['publicationDate'], $data['pictureName']);
+        $post = new Publication($data['publicationId'], strtoupper($data['publicationTitle']), $data['publicationText'], $data['publicationDate'], $data['pictureName']);
         return $post;
     }
 

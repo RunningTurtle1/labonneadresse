@@ -17,31 +17,37 @@
       </div>
     </header>
     
-    <div>
+    <div class="row col-lg-12 block-comment">
+      <div>
 
-        <h3>{{ post.getTitle|raw}}</h3>
-        <p>{{post.getText|raw}}</p>
-    
-    </div>
+          <h3 class="publication-title"><i class="fas fa-certificate"></i> {{ post.getTitle|raw}}</h3>
+          <div class="publicationtext">{{post.getText|raw}}</div>
+      
+      </div>
 
-    <div>
-    <h3>Les commentaires</h3>
+      <div>
+          <h3 class="comment-title"><i class="far fa-comment-alt"></i> Les commentaires</h3>
 
-        {% for comment in comments %}
-            <div>
-                <p> {{ comment.getText|raw }} <br/>
-                {{ comment.getUsername }} le {{ comment.getDate }}
-                </p>
-            </div>
-        {% endfor %}
+          {% for comment in comments %}
+              <div class="comments">
+                  <div class="comment"> 
+                    {{ comment.getText|raw }}
+                    {{ comment.getUsername }} le {{ comment.getDate }}
+                    <hr>
+                  </div>
+              </div>
+          {% endfor %}
 
-    </div>
+      </div>
 
-    <div>
+      <div>
+            <h3 class="comment-title"><i class="fas fa-pen"></i> Votre commentaire</h3>
             <form action="index.php?action=addComment&amp;publicationId={{post.getId}}" method="post">
             <textarea type="textarea" id="comment" name="comment"> </textarea>
-            <p> <input type="submit" value="Envoyer"/> </p>
+            <p> <input type="submit" value="Envoyer" class="submit"/> </p>
             </form>
+      </div>
     </div>
 
 {% endblock %}
+
