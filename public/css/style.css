@@ -51,6 +51,10 @@ body
 {
     top: -80px !important;
 }
+.navbar-toggler
+{
+    display: none;
+}
 
 .title, .publications
 {
@@ -62,31 +66,61 @@ body
     color: #b30000;
     margin-bottom: 25px;
 }
+
+/*          
+
+            FORMULAIRES
+
+*/
+
 .formcontainer
 {
-    width: 100%;
+    width: 100% !important;
 }
+
+#subform, .formcontainer
+{
+    display: flex;
+    justify-content: space-around;
+}
+
 .form
 {
     
-    margin-top: auto;
     margin-top: 100px;
-    background-color: #d0e5fb;
+    padding: 30px 35px;
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     max-width: 350px;
 }
 .form p label
 {
     width: 100%;
+    margin-top: 25px;
 }
 .form input
 {
+    margin-top: 10px; 
+}
+
+.form p
+{
     margin: auto;
+}
+
+.text-input
+{
+    height: 40px !important;
+    width: 250px !important;
+    border-radius: 20px!important;
 }
     
 .side-menu
 {
     height: 250px;
-    position: -webkit-sticky !important;;
+    position: -webkit-sticky !important;
     position: sticky !important;
     top: 80px;
 }
@@ -199,13 +233,6 @@ body
     text-decoration: none;
 }
 
-.text-input
-{
-    height: 40px;
-    width: 250px;
-    border-radius: 20px;
-}
-
 .article-box
 {
     border: 1px black solid;
@@ -220,4 +247,74 @@ body
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+}
+
+@media all and (max-width: 990px)
+{
+    #mainNav
+    {
+        background-color: #b30000 !important;
+        border-bottom: none !important;
+
+    }
+    .navbar-brand
+    {
+        color: #f2f2f2 !important;
+
+    }
+    .navbar-toggler
+    {
+        background-color: #b30000 !important;
+        color: #f2f2f2 !important;
+        border: none !important;
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        position: absolute; 
+        top: 10px;
+        right: 30px;
+    }
+    #navbarResponsive
+    {
+        visibility: hidden;
+    }
+    
+    .navbar-toggler:focus + div
+    {
+        visibility: visible !important;
+    }
+    .navbar-toggler:focus + div ul
+    {
+        right: 110px;
+        background-color: #b30000;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center;
+        padding: 0px;
+    }
+    .navbar-toggler:focus + div ul li
+    {
+        width: 100%;
+        text-align: center;
+        padding: 0px 15px;
+    }
+    .navbar-toggler:focus + div ul li:hover
+    {
+        background-color: #e60000;
+        
+    }
+    .nav-link
+    {
+        color: #f2f2f2;
+        text-decoration: none !important;
+    }
+}
+
+@media all and (max-width: 750px)
+{
+    .publications
+    {
+        display: flex;
+        flex-direction: column;
+    }
 }

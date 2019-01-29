@@ -1,22 +1,30 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-
-    <div class="col-l-8 col-md-10 formcontainer">
+    
+    <div class="formcontainer">
         <form method='post' action='index.php?action=authentification'  class="form mx-auto">
-            <div class="form-group">
+        <h3>ME CONNECTER</h3>
+            <p>    
                 <label for='username'>Votre nom d'utilisateur <br/>
-                    <input type='text' name="username" id='username' class='form-control'/>
-                </label><br/>
+                <input type='text' name="username" id='username' class='form-control text-input'/>
+                </label>
+            </p>
+            <p>
                 <label for='password'>Votre mot de passe </br>
-                    <input type='password' name='password' id='password' class='form-control'/>
-                </label><br/>
+                    <input type='password' name='password' id='password' class='form-control text-input'/>
+                </label>
+            </p>
                 <input type='hidden' value='{{ session.token }}'/>
-                <input type='submit' value='Me connecter'/>
-            </div>
+                <input type='submit' value='Me connecter' class="submit"/>
+            
         </form>
     </div>
 
     <p> {{ session.message }} <p>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="public/js/navbar.js"></script>
 {% endblock %}

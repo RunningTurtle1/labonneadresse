@@ -2,8 +2,9 @@
 
 {% block content %}
     
-    <div id="subform">
+    <div id="subform" class="formcontainer">
         <form method='post' action='index.php?action=newaccount'  class="form">
+            <h3>CREER UN COMPTE</h3>
             <p>
                 <label for='username'>Votre pseudo <br/><input type='text' name='username' id='username' class="text-input"> 
                     <span id="usernamehelp"></span>
@@ -31,4 +32,5 @@
 
 {% block scripts %}
 <script src="public/js/subform.js"></script>
+<script src="public/js/navbar.js"></script>
 {% endblock %}
