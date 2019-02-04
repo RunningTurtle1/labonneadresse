@@ -1,5 +1,9 @@
 {% extends 'layout.twig' %}
 
+{% block title %}
+Créer un compte
+{% endblock %}
+
 {% block content %}
     
     <div id="subform" class="formcontainer">
@@ -19,7 +23,7 @@
             </p>
             <p>
                 <label for='email'>Votre email<br/><input type='email' name='email' id='email' class="text-input"> 
-                    <span id="emailhelp">
+                    <span id="emailhelp"></span>
                 </label>
                 <br/>
             </p>

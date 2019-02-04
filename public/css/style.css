@@ -1,3 +1,15 @@
+@font-face
+{
+    font-family: 'pacifico';
+    src: url('../fonts/pacifico/Pacifico.ttf');
+}
+
+@font-face
+{
+    font-family: 'lobster';
+    src: url('../fonts/Lobster/Lobster_1.3.otf');
+}
+
 body
 {
     background-color: #f2f2f2 !important;
@@ -54,6 +66,23 @@ body
 .navbar-toggler
 {
     display: none;
+}
+
+/*
+
+    TITRES
+
+*/
+
+h1, h1 + .subheading
+{
+    font-family: 'pacifico', 'Comic Sans MS' !important; 
+    font-size: 4em;
+}
+
+h2, h3
+{
+    font-family: 'lobster', 'Comic Sans MS'  !important;
 }
 
 .title, .publications
@@ -120,9 +149,9 @@ body
 .side-menu
 {
     height: 250px;
-    position: -webkit-sticky !important;
     position: sticky !important;
-    top: 80px;
+    top: 100px;
+    margin-bottom: 200px;
 }
 
 #map
@@ -139,6 +168,16 @@ body
     background-color: #ffe6e6;
 }
 
+.arrow
+{
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
+    color: #b30000;
+    font-size: xx-large;
+    z-index: 999;
+}
+
 .featured-image img 
 {
     height: 200px;
@@ -151,7 +190,7 @@ body
     text-align: justify;
 }
 
-#linktopost, .submit
+#linktopost, .submit, .adresses
 {
     border: none;
     display: inline-block;
@@ -163,6 +202,16 @@ body
     background-color: #b30000;
     color: #f2f2f2;
     font-weight: bold;
+}
+
+#addresses
+{
+    padding-left: 0px;
+    padding-top: 15px;
+}
+.list 
+{
+    list-style-type: none;
 }
 
 .page
@@ -254,12 +303,14 @@ body
     #mainNav
     {
         background-color: #b30000 !important;
+        color: #f2f2f2 !important;
         border-bottom: none !important;
 
     }
     .navbar-brand
     {
         color: #f2f2f2 !important;
+        margin-left: 15px;
 
     }
     .navbar-toggler
@@ -312,9 +363,19 @@ body
 
 @media all and (max-width: 750px)
 {
+    .side-menu
+    {
+        position: unset;
+        margin-bottom: 240px;
+    }
+    
     .publications
     {
         display: flex;
         flex-direction: column;
+    }
+    .collapse
+    {
+        display: inline-block !important;
     }
 }

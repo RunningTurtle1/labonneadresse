@@ -6,63 +6,75 @@
 
     <!-- header -->
 
-    <header class="masthead" style="background-image: url('public/images/2118.jpg')">
+    <header class="masthead" id="masthead" style="background-image: url('public/images/2118.jpg')">
       <div class="overlay"></div>
       <div class="container">
+        
         <div class="row title">
+          
           <div class="col-lg-8 col-md-10 mx-auto ">
+            
             <div class="site-heading">
               <h1>La Bonne Adresse <i class="fas fa-utensils"></i></h1> 
               <span class="subheading">Le rendez-vous des gourmets</span>
             </div>
+
           </div>
+
         </div>
+
       </div>
     </header>
     
 
     <!-- PUBLICATIONS -->
-
+    <div class='arrow'> 
+        <a href="#masthead"><span class="glyphicon glyphicon-circle-arrow-up arrow" id="arrowup"> </span></a>
+        <a href="#pagebottom"><span class="glyphicon glyphicon-circle-arrow-down arrow" id="arrowdown"> </span></a>
+    </div>
+    
     <div class='container'>
         <div class="row publications">
             
-            <div class="col-lg-3 col-lg-push-9 col-md-4 col-md-push-9 col-sm-6 col-sm-push-8">
+            <div class="col-lg-3 col-lg-push-9 col-md-4 col-md-push-9 ">
 
                 <div class="side-menu">
+                    
                     <div id="map"> 
                     </div>
 
                     <div id="panneau">
                         <p>Nom du restaurant : <span id="restaurantName"></span></p>
                         <p>Adresse : <span id="restaurantPlace"></span></p>
-                        <!--<p><span id="popularity"></span> personnes aiment ce restaurant</p>-->
                         <a href="#" id="linktopost">La critique !</a>
                     </div>
+
                 </div>
+
             </div>
 
-            <div class="col-lg-9 col-lg-pull-3 col-md-10 col-md-pull-4 col-sm-10 col-sm-pull-5"> 
+            <div class="col-lg-9 col-lg-pull-3 col-md-10 col-md-pull-4 "> 
                 {% for post in posts %}
-                    <div class="post-preview">    
+                    <div class=" row post-preview">    
                         <a href='index.php?action=showpost&amp;publicationId={{post.getId}}'> <h3 class='publication-title'><i class="fas fa-certificate"></i> {{post.getTitle}} </h3> </a>
-                        <div class="featured-image"> <img src="public/images/{{ post.getPicture }}" />
-                        <div class="publicationtext">
-                            {{post.getText|raw}}[...]
-                            <br/>
-                            <a href="index.php?action=showpost&amp;publicationId={{post.getId}}">Lire la suite</a>
-                        </div>
+                        <div class="featured-image"> <img src="public/images/{{ post.getPicture }}" alt="Le plat du chef !" />
+                            <div class="publicationtext">
+                                {{post.getText|raw}}[...]
+                                <br/>
+                                <a href="index.php?action=showpost&amp;publicationId={{post.getId}}">Lire la suite</a>
+                            </div>
                         </div>
                     </div>
                     <hr>
                 {% endfor %}
             </div>
 
-
         </div>
             
     </div>
+    </div>
 
-    <div class="page">
+    <div class="page" id="pagebottom">
         {% for i in 1..pages %}
              <a href="index.php?cPage={{ i }}"> {{ i }} </a>
         {% endfor %}

@@ -26,6 +26,8 @@
     {% if editpost == false %}
         <div class="posteditor col-lg-12">    
             <h2 class="adm-title"> NOUVEL ARTICLE </h2>
+                    <div class="alert">  {{ session.message }} </div>
+
             <form method='post' action='index.php?action=newpost' enctype="multipart/form-data"> 
                 <label for='title'> 
                     <p>Nom du restaurant </p>
@@ -53,8 +55,6 @@
                 </label>
             </form>
         </div>
-
-        <div> {{ session.message }} </div>
         
         <div class="col-lg-12 articles-interface">  
             <h2 class="adm-title"> LES ARTICLES </h2>

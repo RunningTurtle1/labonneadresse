@@ -32,3 +32,25 @@ $('#search').click(function(e)
 })
 
 
+
+const arrowup = $('#arrowup');
+const arrowdown = $('#arrowdown');
+$(arrowup).hide();
+$(arrowdown).hide();
+var position = $(window).scrollTop(); 
+
+
+$(window).scroll(function() {
+    var scroll = $(window).scrollTop();
+    if(scroll > position) 
+    {
+        $(arrowdown).show(500);
+        $(arrowup).hide(500);
+    } 
+    else 
+    {
+        $(arrowup).show(500);
+        $(arrowdown).hide(500);
+    }
+    position = scroll;
+});

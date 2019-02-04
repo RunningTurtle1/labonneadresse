@@ -44,7 +44,7 @@ class PublicationController extends MainController
     {
         $this->checkToken();
         $this->checkAdmin();
-        $this->checkForm(array($_POST['title'], $_POST['text'], $_POST['long'], $_POST['lat']));
+        $this->checkForm(array($_POST['title'], $_POST['text'], $_POST['long'], $_POST['lat'], $_POST['picture']));
         $fileName = $this->upload('picture');
         $publication = new PublicationManager();
         $publication->addPub($_POST['title'], $_POST['text'], $_POST['address'], $_POST['long'], $_POST['lat'], $fileName);

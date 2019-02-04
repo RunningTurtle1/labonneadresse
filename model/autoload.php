@@ -20,15 +20,6 @@ class Autoloader
         }
         $path = strtolower(implode("/", array_slice($array_path, 0, (count($array_path) - 1)))) . '/' . array_pop($array_path) . '.php';
         require($path);
-        /*if (file_exists('model/' . $class . '.php'))
-        {
-            require 'model/' . $class . '.php';
-
-        }
-        else if (file_exists('controller/' . $class . '.php'))
-        {
-            require 'controller/' . $class . '.php';
-        }*/
     }
 
 }
