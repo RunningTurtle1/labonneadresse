@@ -20,7 +20,7 @@ if (!isset($_SESSION['token']))
 {
     $controller = new MainController;
     $token = $controller->generateToken();
-}
+} 
 
 if (isset($_GET['action']))
 {

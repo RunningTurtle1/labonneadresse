@@ -1,6 +1,5 @@
 <?php
 namespace Model;
-//use Model\Comment;
 class CommentManager extends ConnexionManager
 {
     public function getComments ($publicationId)
